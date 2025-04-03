@@ -58,4 +58,9 @@ php search_embeddings.php "What php version is supported"
 
 ## Incorporate vector storage and embeding API into LHC for self hosting solution.
 
-Upcomming :P
+Flow should look like
+
+* First query should go to embeding server and embedings retrieved
+* Embedings should be send to Vector Database Chroma DB
+* Embedings results merged into single text
+* Embedings should be send to LLM for final answer

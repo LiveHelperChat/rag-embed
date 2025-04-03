@@ -165,7 +165,7 @@ function displayResults($results, $query) {
             
             echo "Result #" . ($i + 1) . ":\n";
             echo "Text: $document\n";
-            echo "Similarity: " . (1 - $distance) . "\n";
+            echo "Similarity: " . $distance . "\n";
             echo "Metadata: $metadata\n";
             echo "--------\n";
         }
