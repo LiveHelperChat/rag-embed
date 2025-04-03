@@ -5,7 +5,7 @@ At this moment this sample app embeds one document only at a time. You can exten
 ## Run ChromaDB
 
 ```
-docker run -v $(pwd)/chrome-data:/data -p 8010:8000 ghcr.io/chroma-core/chroma:0.6.4.dev226
+docker run -d -v $(pwd)/chrome-data:/data -p 127.0.0.1:8010:8000 ghcr.io/chroma-core/chroma:0.6.4.dev226 
 ```
 
 * Navigate browser to http://localhost:8010/docs

@@ -10,7 +10,17 @@ With it you can get embedings using Rest API `all-MiniLM-L6-v2` model. After tha
 
 ## Usage
 
-`docker-compose -f docker-compose.yml up -d`
+Pull image first
+
+```
+docker pull remdex/livehelperchat-rag-embed
+```
+
+Run as a daemon
+
+```
+docker-compose -f docker-compose.yml up -d
+```
 
 ## To get embedings for single document
 

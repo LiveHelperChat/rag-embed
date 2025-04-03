@@ -5,7 +5,7 @@ services:
     image: remdex/livehelperchat-rag-embed:latest
     build: .
     ports:
-      - "9710:5000"
+      - "127.0.0.1:9710:5000"
 #    volumes:
 #      - ./embed.py:/app/embed.py
     restart: always
