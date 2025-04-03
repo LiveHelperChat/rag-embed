@@ -5,7 +5,7 @@ At this moment this sample app embeds one document only at a time. You can exten
 ## Run ChromaDB
 
 ```
-docker run -d -v $(pwd)/chrome-data:/data -p 127.0.0.1:8010:8000 ghcr.io/chroma-core/chroma:0.6.4.dev226 
+docker-compose -f docker-compose.yml up -d
 ```
 
 * Navigate browser to http://localhost:8010/docs
@@ -13,7 +13,7 @@ docker run -d -v $(pwd)/chrome-data:/data -p 127.0.0.1:8010:8000 ghcr.io/chroma-
 
 ```shell
 curl -X 'POST' \
-  'http://localhost:8010/api/v2/tenants' \
+  'http://127.0.0.1:8010/api/v2/tenants' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -25,12 +25,24 @@ curl -X 'POST' \
 
 ```shell
 curl -X 'POST' \
-  'http://localhost:8010/api/v2/tenants/lhc/databases' \
+  'http://127.0.0.1:8010/api/v2/tenants/lhc/databases' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "name": "string"
+  "name": "lhc"
 }'
+```
+
+To list databases
+
+```
+curl -X 'GET' 'http://localhost:8010/api/v2/tenants/lhc/databases' -H 'accept: application/json'
+```
+
+To list collections
+
+```
+curl -X 'GET' 'http://localhost:8010/api/v2/tenants/lhc/databases/lhc/collections' -H 'accept: application/json'
 ```
 
 ## Run embeding docker image 
@@ -73,8 +85,10 @@ Write down your collection id `bb308c00-4392-4f8b-ba81-6f722221fc64`
 
 ## Search by embedings
 
+Last argument is your collection ID
+
 ```
-php search_embeddings.php "What php version is supported"
+php search_embeddings.php "Your search query" "Collection ID"
 ```
 
 ## Incorporate vector storage and embeding API into LHC for self hosting solution.

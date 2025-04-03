@@ -2,7 +2,7 @@
 
 /**
  * Script to search in ChromaDB by embeddings
- * Usage: php search_embeddings.php "Your search query"
+ * Usage: php search_embeddings.php "Your search query" "Collection ID"
  */
 
 // Check if a search query is provided
@@ -16,7 +16,7 @@ $searchQuery = $argv[1];
 $chromaHost = getenv('CHROMA_HOST') ?: 'localhost';
 $chromaPort = getenv('CHROMA_PORT') ?: '8010';
 $baseUrl = "http://{$chromaHost}:{$chromaPort}";
-$collectionId = 'bb308c00-4392-4f8b-ba81-6f722221fc64';
+$collectionId = isset($argv[2]) ? $argv[2] : '38426cbd-a66a-4f44-939c-fd313a9bb11f';
 $tenant = getenv('COLLECTION_NAME') ?: 'lhc';
 $database = getenv('COLLECTION_NAME') ?: 'lhc';
 
