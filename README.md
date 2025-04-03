@@ -2,6 +2,8 @@
 
 Repository holds simple Rest API embeding server which can be used to get embedings of plain text content.
 
+Docker hum address - https://hub.docker.com/r/remdex/livehelperchat-rag-embed
+
 ## What is purposes of this?
 
 With it you can get embedings using Rest API `all-MiniLM-L6-v2` model. After that you can save embedings in Vector database.
