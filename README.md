@@ -2,7 +2,7 @@
 
 Repository holds simple Rest API embeding server which can be used to get embedings of plain text content.
 
-Docker hum address - https://hub.docker.com/r/remdex/livehelperchat-rag-embed
+Docker hub address - https://hub.docker.com/r/remdex/livehelperchat-rag-embed
 
 ## What is purposes of this?
 
