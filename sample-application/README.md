@@ -10,7 +10,28 @@ docker run -d -v $(pwd)/chrome-data:/data -p 127.0.0.1:8010:8000 ghcr.io/chroma-
 
 * Navigate browser to http://localhost:8010/docs
 * Create Tenant http://localhost:8010/docs#/default/create_tenant-v2 E.g name - `lhc`
-* Create Database http://server:8010/docs#/default/create_database-v2 by entering Tenant name `lhc`
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8010/api/v2/tenants' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "lhc"
+}'
+```
+
+* Create Database http://localhost:8010/docs#/default/create_database-v2 by entering Tenant name `lhc`
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8010/api/v2/tenants/lhc/databases' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "string"
+}'
+```
 
 ## Run embeding docker image 
 
@@ -32,7 +53,7 @@ More information at https://github.com/LiveHelperChat/crawler-to-md
 php embed_documents.php httpsdoc.livehelperchat.com.md
 ```
 
-After that in this folder you will see `output.json` file generated.
+After that in this folder you will see `output.json` file generated. Generation for 1.3 MB files takes about 30 seconds.
 
 ## Store embedings in Chroma DB
 
