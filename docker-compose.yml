@@ -6,6 +6,10 @@ services:
     build: .
     ports:
       - "127.0.0.1:9710:5000"
+    environment:
+      - EMBEDDINGS_MODEL_NAME=all-MiniLM-L6-v2
+      - CHUNK_SIZE=500
+      - CHUNK_OVERLAP=50
 #    volumes:
 #      - ./embed.py:/app/embed.py
     restart: always

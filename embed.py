@@ -11,14 +11,16 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 embeddings_model_name = os.environ.get("EMBEDDINGS_MODEL_NAME", "all-MiniLM-L6-v2")
+chunk_size = int(os.environ.get("CHUNK_SIZE", "500"))
+chunk_overlap = int(os.environ.get("CHUNK_OVERLAP", "50"))
 
 # Parse the command line arguments
 embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
 # Initialize the text splitter
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,  # Number of characters per chunk
-    chunk_overlap=50,  # Overlap between chunks
+    chunk_size=chunk_size,  # Number of characters per chunk
+    chunk_overlap=chunk_overlap,  # Overlap between chunks
     # separators=["\n\n", "\n", " ", ""]  # Splitting separators (default)
 )
 
