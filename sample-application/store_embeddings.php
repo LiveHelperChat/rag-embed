@@ -66,7 +66,7 @@ if (!$collectionExists) {
         'metadata' => ['description' => 'Live Helper Chat embeddings collection'],
         'dimension' => $embeddingDimension
     ]);
-    
+
     $createResponse = httpRequest("{$baseUrl}/api/v2/tenants/{$tenant}/databases/{$database}/collections", 'POST', $createPayload);
     if ($createResponse) {
         $newCollection = json_decode($createResponse, true);
@@ -74,8 +74,16 @@ if (!$collectionExists) {
             $collectionId = $newCollection['id'];
         }
     }
-    echo "Created new collection: $collectionName with dimension $embeddingDimension\n";
+    echo "Created new collection: $collectionName with dimension $embeddingDimension with id $collectionId\n";
 } else {
+
+    // Deleting previous documents
+    $ids = json_decode(httpRequest("{$baseUrl}/api/v2/tenants/{$tenant}/databases/{$database}/collections/{$collectionId}/get",'POST','{"include":["metadatas"]}'),true);
+
+    if (!empty($ids['ids'])) {
+        httpRequest("{$baseUrl}/api/v2/tenants/{$tenant}/databases/{$database}/collections/{$collectionId}/delete",'POST', json_encode(['ids' => $ids['ids']]));
+    }
+
     echo "Using existing collection: $collectionName with id $collectionId\n";
 }
 
@@ -127,15 +135,15 @@ if ($upsertResponse) {
  */
 function httpRequest($url, $method = 'GET', $data = null) {
     $ch = curl_init($url);
-    
+
     $headers = [
         'Content-Type: application/json',
         'Accept: application/json'
     ];
-    
+
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    
+
     if ($method === 'POST') {
         curl_setopt($ch, CURLOPT_POST, true);
         if ($data !== null) {
@@ -147,21 +155,21 @@ function httpRequest($url, $method = 'GET', $data = null) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
     }
-    
+
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    
+
     if (curl_errno($ch)) {
         echo "cURL Error: " . curl_error($ch) . "\n";
         return false;
     }
-    
+
     curl_close($ch);
-    
+
     if ($httpCode >= 400) {
         echo "HTTP Error: $httpCode - Response: $response\n";
         return false;
     }
-    
+
     return $response;
 }
