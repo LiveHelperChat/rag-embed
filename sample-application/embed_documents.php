@@ -30,8 +30,10 @@ if (empty($query)) {
     exit(1);
 }
 
+$documents = preg_split('/^---$/m', $query);
+
 // Prepare data for the POST request
-$data = json_encode(['docs' => [$query]]);
+$data = json_encode(['docs' => $documents]);
 
 // Set up cURL request
 $ch = curl_init($host . '/embed_documents');
