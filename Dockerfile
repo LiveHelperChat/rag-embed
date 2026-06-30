@@ -24,5 +24,5 @@ COPY embed.py /app/
 # Expose the port the app runs on
 EXPOSE 5000
 
-# Command to run your Python script
-CMD ["python", "/app/embed.py"]
+# Production WSGI server — 4 workers × 3 threads = 12 concurrent connections
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--threads", "3", "--timeout", "120", "--keep-alive", "5", "embed:app"]

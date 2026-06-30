@@ -3,13 +3,18 @@ version: '3'
 services:
   web:
     image: remdex/livehelperchat-rag-embed:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     build: .
     ports:
       - "127.0.0.1:9710:5000"
     environment:
       - EMBEDDINGS_MODEL_NAME=all-MiniLM-L6-v2
-      - CHUNK_SIZE=500
-      - CHUNK_OVERLAP=50
-#    volumes:
-#      - ./embed.py:/app/embed.py
+      - CHUNK_SIZE=800
+      - CHUNK_OVERLAP=150
+    volumes:
+      - ./embed.py:/app/embed.py
     restart: always
